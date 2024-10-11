@@ -1,55 +1,52 @@
-import java.util.Arrays;
-import java.util.Random;
-
 public class NeuralNetwork {
-    private int inputNodes;
-    private int hiddenNodes; // 2 layers.
-    private int outputNodes;
-    private float learningRate;
+	private double[] inputs;
 
-    private double[][] wih;
-    private double[][] who;
-    private int[] o;
+	//Weights between the Input layer and the first Layer
+	private double[][] InFl;
 
-    public NeuralNetwork(int inputNodes, int hiddenNodes, int outputNodes, float learningRate) {
-        this.inputNodes = inputNodes;
-        this.hiddenNodes = hiddenNodes;
-        this.outputNodes = outputNodes;
-        this.learningRate = learningRate;
+	public NeuralNetwork(double[] inputs, double[][] InFl) {
+		this.inputs = inputs;
+		this.InFl = InFl;
+	}
 
-        //Weights
-        wih = new double[hiddenNodes][inputNodes];
-        who = new double[outputNodes][hiddenNodes];
+	public double[] getWeightedSum() {
+		if (inputs.length != InFl.length) {
+			throw new IllegalArgumentException("Number of columns in inputs must be equal to the number of rows in the second");
+		}
+		//Create an array to store the outputs
+		double[] outputs = new double[inputs.length];
+		//for every input
+		for (int input = 0; input < inputs.length; input++) {
+			double weight = 0;
+			//for every row in the weights matrix
+			for (int row = 0; row < InFl.length; row++) {
+				weight += InFl[row][input];
+			}
 
-        for (int a = 0; a < wih.length; a++) {
-            for (int b = 0; b < wih.length; b++) {
-                wih[a][b] = randomTwoDecimalNumber(hiddenNodes + inputNodes);
-            }
-        }
+			outputs[input] = weight;
+		}
 
-        for (int a = 0; a < who.length; a++) {
-            for (int b = 0; b < who.length; b++) {
-                who[a][b] = randomTwoDecimalNumber(outputNodes + hiddenNodes);
-            }
-        }
-    }
+		return outputs;
+	}
 
-    public void train(int[] input) {
+	public double[] applyActivationFunction(double[] summedWeightOutput){
+		double[] output = new double[summedWeightOutput.length];
 
-    }
+		for (int i = 0; i < output.length; i++) {
+			output[i] = sigmoidFunction(summedWeightOutput[i]);
+		}
 
-    public void query() {
+		return output;
+	}
 
-    }
+	protected static double randomTwoDecimalNumber(int sumFanInFanOut) {
+		double r = Math.random();
+		double num = Math.pow(sumFanInFanOut, -0.5);
 
-    protected static double randomTwoDecimalNumber(int linkSize) {
-        double r = Math.random();
-        double num = Math.pow(linkSize, -0.5);
+		return r * (num - (-num)) + (-num);
+	}
 
-        return r * (num - (-num)) + (-num);
-    }
-
-    protected static double sigmoidFunction(double num) {
-        return Math.pow((1) / (1 + Math.E), -num);
-    }
+	protected static double sigmoidFunction(double num) {
+		return Math.pow((1) / (1 + Math.E), -num);
+	}
 }
