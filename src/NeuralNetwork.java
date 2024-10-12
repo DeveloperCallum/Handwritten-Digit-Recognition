@@ -20,7 +20,7 @@ public class NeuralNetwork {
 			double weight = 0;
 			//for every row in the weights matrix
 			for (int row = 0; row < InFl.length; row++) {
-				weight += InFl[row][input];
+				weight += InFl[row][input] * inputs[input];
 			}
 
 			outputs[input] = weight;
