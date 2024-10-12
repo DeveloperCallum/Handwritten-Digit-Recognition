@@ -14,6 +14,6 @@ public class SigmoidActivationFunction implements ActivationFunction{
 
 	@Override
 	public double Activation(double summedWeightOutput) {
-		return Math.pow((1) / (1 + Math.E), -summedWeightOutput);
+		return 1 / (1 + Math.exp(-summedWeightOutput));
 	}
 }
