@@ -1,0 +1,25 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.paidsoftware.app</groupId>
+    <artifactId>digit-recognition</artifactId>
+    <version>1</version>
+
+    <build>
+        <testSourceDirectory>src/main/test</testSourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
+    </build>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</project>
