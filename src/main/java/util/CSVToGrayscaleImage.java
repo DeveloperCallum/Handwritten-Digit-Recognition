@@ -31,10 +31,6 @@ public class CSVToGrayscaleImage {
 
             // Save the image (optional)
             ImageIO.write(image, "PNG", new File("output.png"));
-
-            // Display the image (you can use a Swing JFrame here)
-            // ...
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,7 +42,6 @@ public class CSVToGrayscaleImage {
             String line = grayscaleCSV;
             BufferedImage image = createImage(line);
 
-            // Save the image (optional)
             ImageIO.write(image, "PNG", new File("output.png"));
 
         } catch (IOException e) {
