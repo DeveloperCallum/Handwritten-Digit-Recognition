@@ -1,3 +1,5 @@
+package functionalTests;
+
 import network.activation.ActivationFunction;
 import network.activation.SigmoidActivationFunction;
 import org.junit.Assert;
@@ -9,7 +11,7 @@ public class ActivationFunctionTest {
 	public void sigmoidTest(){
 		ActivationFunction activationFunction = new SigmoidActivationFunction();
 
-		double output = activationFunction.Activation(1.386);
+		double output = activationFunction.activation(1.386);
 		double expected = 0.80;
 		double delta = 0.1;
 

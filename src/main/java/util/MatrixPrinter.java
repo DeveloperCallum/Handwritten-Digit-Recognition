@@ -16,6 +16,7 @@ public class MatrixPrinter {
 
 			System.out.print("\n");
 		}
+		System.out.println();
 	}
 
 	public static void printMatrix(double[] array) {
