@@ -70,12 +70,11 @@ public class EndToEndCalculationTest {
 		TestUtil.testMatrixEqualsResult(expected2, output2, 0.01);
 
 		double[][] o2Sigmoid = neuralNetwork.applyActivationFunction(output2);
-
 		TestUtil.testMatrixEqualsResult(expectedO2Sigmoid, o2Sigmoid, 0.01);
 	}
 
 	@Test
-	public void calculateProportionalError() {
+	public void calculateProportionalWHOError() {
 		double[][] target = {{1}, {0.5}, {0.3}};
 		double[][] output = new double[][]{
 				{0.726},
@@ -88,15 +87,40 @@ public class EndToEndCalculationTest {
 				{0.8, 0.1, 0.9}
 		};
 
-		NeuralNetwork neuralNetwork = new NeuralNetwork(new SigmoidActivationFunction());
-		double[][] actual = neuralNetwork.calculateError(target, output);
+		double[][] expected = new double[][]{
+				{-0.25},
+				{0.030769231},
+				{-0.20925}
+		};
 
-		MatrixPrinter.printMatrix(actual);
+		NeuralNetwork neuralNetwork = new NeuralNetwork(new SigmoidActivationFunction());
+		double[][] error = neuralNetwork.calculateError(target, output);
+
 
 		double[][] proportionalMatrix = neuralNetwork.calculateProportionalMatrix(fl2L);
-		MatrixPrinter.printMatrix(proportionalMatrix);
+		double[][] proportionalMatrixT = MatrixCalculator.transposeMatrix(proportionalMatrix);
+		double[][] actual = MatrixCalculator.multiplyMatrix(proportionalMatrixT, error);
 
-		double[][] result = MatrixCalculator.multiplyMatrix(proportionalMatrix, actual);
-		MatrixPrinter.printMatrix(result);
+		TestUtil.testMatrixEqualsResult(expected, actual, 0.01);
+	}
+
+	@Test
+	public void calculateProportionalWIHError() {
+		double[][] inFL = new double[][]{
+				{0.9, 0.3, 0.4},
+				{0.2, 0.8, 0.2},
+				{0.1, 0.5, 0.6}
+		};
+
+		double[][] eL2 = new double[][]{
+				{-0.25},
+				{0.030769231},
+				{-0.20925}
+		};
+
+		NeuralNetwork neuralNetwork = new NeuralNetwork(new SigmoidActivationFunction());
+		double[][] proportionalMatrix = neuralNetwork.calculateProportionalMatrix(inFL);
+
+		MatrixPrinter.printMatrix(MatrixCalculator.transposeMatrix(proportionalMatrix));
 	}
 }
