@@ -1,9 +1,11 @@
 package functionalTests;
 
+import network.MatrixCalculator;
 import network.NeuralNetwork;
 import network.activation.SigmoidActivationFunction;
 import org.junit.Assert;
 import org.junit.Test;
+import util.MatrixPrinter;
 
 public class WeightTests {
 
@@ -111,17 +113,77 @@ public class WeightTests {
 				{52}};
 
 		double[][] expected = new double[][]{
-				{-22},
-				{-12},
-				{2},
-				{-21},
-				{33},
-				{-51}};
+				{484},
+				{144},
+				{4},
+				{441},
+				{1089},
+				{2601}};
 
 		NeuralNetwork neuralNetwork = new NeuralNetwork(new SigmoidActivationFunction());
 		double[][] actual = neuralNetwork.calculateError(target, output);
 
 		TestUtil.testMatrixEqualsResult(expected, actual, 0.01);
+	}
+
+	@Test
+	public void calculateError1(){
+		double[][] target = new double[][]{
+				{0.5},
+				{0.7},
+				{1}
+		};
+
+		double[][] output = new double[][]{
+				{0.4},
+				{0.8},
+				{1},
+		};
+
+		double[][] expected = new double[][]{
+				{0.01},
+				{0.01},
+				{0.0},
+		};
+
+		NeuralNetwork neuralNetwork = new NeuralNetwork(new SigmoidActivationFunction());
+		double[][] actual = neuralNetwork.calculateError(target, output);
+
+		TestUtil.testMatrixEqualsResult(expected, actual, 0.01);
+	}
+
+	@Test
+	public void calculateError2(){
+		double[][] who = new double[][]{
+				{2, 1},
+				{3, 4}
+
+		};
+
+		double[][] wih = new double[][]{
+				{3, 1},
+				{2, 7}
+
+		};
+
+		double[][] outputError = new double[][]{
+				{0.8},
+				{0.5}
+		};
+
+
+		NeuralNetwork neuralNetwork = new NeuralNetwork(new SigmoidActivationFunction());
+		double[][] proportionalMatrix = neuralNetwork.calculateProportionalMatrix(who);
+		double[][] eho = MatrixCalculator.multiplyMatrix(proportionalMatrix, outputError);
+		double[][] proportionalMatrix1 = neuralNetwork.calculateProportionalMatrix(wih);
+		double[][] eih = MatrixCalculator.multiplyMatrix(proportionalMatrix1, eho);
+
+		double[][] expected = new double[][]{
+				{0.362},
+				{0.930}
+		};
+
+		TestUtil.testMatrixEqualsResult(expected, eih, 0.01);
 	}
 
 	@Test

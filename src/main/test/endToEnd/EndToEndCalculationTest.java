@@ -88,9 +88,9 @@ public class EndToEndCalculationTest {
 		};
 
 		double[][] expected = new double[][]{
-				{-0.25},
-				{0.030769231},
-				{-0.20925}
+				{-0.21},
+				{-0.04},
+				{-0.15}
 		};
 
 		NeuralNetwork neuralNetwork = new NeuralNetwork(new SigmoidActivationFunction());
@@ -98,8 +98,7 @@ public class EndToEndCalculationTest {
 
 
 		double[][] proportionalMatrix = neuralNetwork.calculateProportionalMatrix(fl2L);
-		double[][] proportionalMatrixT = MatrixCalculator.transposeMatrix(proportionalMatrix);
-		double[][] actual = MatrixCalculator.multiplyMatrix(proportionalMatrixT, error);
+		double[][] actual = MatrixCalculator.multiplyMatrix(proportionalMatrix, error);
 
 		TestUtil.testMatrixEqualsResult(expected, actual, 0.01);
 	}

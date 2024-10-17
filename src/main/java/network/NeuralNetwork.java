@@ -53,7 +53,8 @@ public class NeuralNetwork {
 		double[][] results = new double[target.length][1];
 
 		for (int i = 0; i < results.length; i++) {
-			results[i][0] = target[i][0] - output[i][0];
+			double e = target[i][0] - output[i][0];
+			results[i][0] = Math.pow(e, 2);
 		}
 
 		return results;
